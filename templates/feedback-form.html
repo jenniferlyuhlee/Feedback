@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Feedback{% endblock %}
+
+{% block content %}
+
+{% if feedback %}
+<h1 class="display-4">Update Feedback</h1>
+{% else %}
+<h1 class="display-4">Add Feedback</h1>
+{% endif %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden'%}
+        <div class="form-group">
+            {{field.label}}
+            {{field(class_="form-control")}}
+            {% if field.errors %}
+                {% for err in field.errors %}
+                <small class="form-text text-danger">
+                    {{err}}
+                </small>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    {% if feedback %}
+    <button class="btn btn-success btn-lg">Update</button>
+    {% else %}
+    <button class="btn btn-success btn-lg">Add</button>
+    {% endif %}
+  </form>
+{% endblock %}
